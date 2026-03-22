@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shiva — The Destroyer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+Devanagari:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+:root { --a:#c8c8e8; --a2:#7070d0; --g:rgba(160,160,230,0.28); --bg:#05050e; }
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { font-family:'EB Garamond',serif; background:var(--bg); color:#e8dcc8; overflow-x:hidden; cursor:default; }
+
+#bgCanvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+.noise { position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px; }
+
+nav { position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1rem 2rem; background:rgba(5,5,14,0.9); backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(160,160,230,0.12); }
+.nav-logo { font-family:'Cinzel Decorative',serif; font-size:0.75rem; letter-spacing:0.25em; color:var(--a); text-decoration:none; }
+.nav-links { display:flex; gap:1.5rem; }
+.nav-link { font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase;
+  color:rgba(232,220,200,0.4); text-decoration:none; transition:color 0.3s; padding:0.2rem 0; border-bottom:1px solid transparent; }
+.nav-link:hover, .nav-link.active { color:var(--a); border-color:var(--a); }
+
+.hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:7rem 2rem 5rem; position:relative; overflow:hidden; }
+.hero-bg { position:absolute; inset:0;
+  background-image:url('shiva.jpeg');
+  background-size:cover; background-position:center 15%;
+  filter:brightness(0.16) saturate(0.5) hue-rotate(220deg); transform:scale(1.05); }
+.hero-vig { position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 80% at 50% 50%, transparent 15%, rgba(5,5,14,0.7) 60%, rgba(5,5,14,0.97) 100%); }
+.hero-sides { position:absolute; inset:0;
+  background:linear-gradient(to right, rgba(5,5,14,0.9) 0%, transparent 25%, transparent 75%, rgba(5,5,14,0.9) 100%); }
+.hero-glow { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:550px; height:550px; border-radius:50%;
+  background:radial-gradient(circle, var(--g) 0%, transparent 70%);
+  animation:gPulse 4s ease-in-out infinite; pointer-events:none; }
+@keyframes gPulse { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.6} 50%{transform:translate(-50%,-50%) scale(1.2);opacity:1} }
+.hero-content { position:relative; z-index:5; max-width:680px; }
+.hero-mantra { font-family:'Noto Sans Devanagari',sans-serif; font-size:1rem; color:var(--a); opacity:0.8; margin-bottom:1rem; animation:fadeUp 0.8s ease both; }
+.hero-name { font-family:'Cinzel Decorative',serif; font-weight:900; font-size:clamp(4rem,12vw,8rem); line-height:0.95; color:var(--a);
+  text-shadow:0 0 80px var(--g); filter:drop-shadow(0 0 40px var(--g)); animation:fadeUp 0.8s 0.1s ease both; }
+.hero-epithet { font-family:'Cinzel',serif; font-size:clamp(0.6rem,1.5vw,0.82rem); letter-spacing:0.45em; text-transform:uppercase;
+  color:var(--a2); opacity:0.6; margin-top:0.5rem; animation:fadeUp 0.8s 0.2s ease both; }
+.hero-line { width:180px; height:1px; margin:1.8rem auto; background:linear-gradient(to right,transparent,var(--a),transparent); animation:fadeUp 0.8s 0.25s ease both; }
+.hero-intro { font-size:1.08rem; line-height:1.9; color:rgba(232,220,200,0.8); animation:fadeUp 0.8s 0.3s ease both; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(25px)} to{opacity:1;transform:translateY(0)} }
+
+.section { max-width:1000px; margin:0 auto; padding:5rem 2rem; position:relative; z-index:2; }
+.s-label { font-family:'Cinzel',serif; font-size:0.58rem; letter-spacing:0.5em; text-transform:uppercase; color:var(--a); opacity:0.7; margin-bottom:0.4rem; }
+.s-title { font-family:'Cinzel Decorative',serif; font-size:clamp(1.3rem,3vw,2rem); color:#e8dcc8; margin-bottom:1.4rem; line-height:1.2; }
+.s-title em { color:var(--a); font-style:normal; }
+.body-p { font-size:1.05rem; line-height:1.9; color:rgba(232,220,200,0.8); margin-bottom:1.1rem; }
+.divider { max-width:1000px; margin:0 auto; height:1px; background:linear-gradient(to right,transparent,rgba(160,160,230,0.18),transparent); }
+.orn { text-align:center; padding:1rem 0; color:var(--a); font-size:0.9rem; letter-spacing:1.5rem; opacity:0.5; }
+
+.attr-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin-top:1.5rem; }
+.attr-card { border:1px solid rgba(160,160,230,0.1); border-top:2px solid var(--a); padding:1.4rem 1.1rem; background:rgba(160,160,230,0.025); transition:transform 0.3s,box-shadow 0.3s; }
+.attr-card:hover { transform:translateY(-5px); box-shadow:0 10px 30px var(--g); }
+.attr-icon { font-size:1.5rem; margin-bottom:0.6rem; }
+.attr-name { font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:0.1em; color:var(--a); margin-bottom:0.35rem; }
+.attr-text { font-size:0.85rem; line-height:1.6; color:rgba(232,220,200,0.55); margin:0; }
+
+.consort-box { border:1px solid rgba(160,160,230,0.1); border-left:3px solid var(--a2); padding:2.5rem; background:rgba(255,255,255,0.015); position:relative; overflow:hidden; margin-top:1.5rem; }
+.consort-box::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(to right, var(--a), var(--a2), transparent); }
+.consort-name { font-family:'Cinzel Decorative',serif; font-size:clamp(1.8rem,4vw,2.6rem); font-weight:700; color:var(--a); margin-bottom:0.3rem; filter:drop-shadow(0 0 18px var(--g)); }
+.consort-sub { font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:rgba(232,220,200,0.35); margin-bottom:1.4rem; }
+.d-quote { border-left:2px solid var(--a2); padding:0.9rem 1.4rem; margin:1.3rem 0; background:rgba(255,255,255,0.018); font-style:italic; font-size:0.98rem; line-height:1.8; color:rgba(232,220,200,0.72); }
+.d-quote cite { display:block; margin-top:0.4rem; font-size:0.72rem; font-style:normal; letter-spacing:0.1em; color:var(--a); }
+.pills { display:flex; flex-wrap:wrap; gap:0.45rem; margin-top:1.1rem; }
+.pill { font-family:'Cinzel',serif; font-size:0.62rem; padding:0.32rem 0.85rem; border-radius:100px; border:1px solid rgba(160,160,230,0.2); color:var(--a); background:rgba(160,160,230,0.03); transition:all 0.25s; cursor:default; }
+.pill:hover { background:rgba(160,160,230,0.09); border-color:var(--a); }
+
+.tl { position:relative; padding-left:1.7rem; margin-top:1.4rem; }
+.tl::before { content:''; position:absolute; left:0; top:0; bottom:0; width:1px; background:linear-gradient(to bottom, var(--a), transparent); }
+.tl-item { position:relative; margin-bottom:2rem; padding-left:1.1rem; }
+.tl-dot { position:absolute; left:-2rem; top:0.22rem; width:9px; height:9px; border-radius:50%; background:var(--a); box-shadow:0 0 8px var(--g); }
+.tl-era { font-family:'Cinzel',serif; font-size:0.58rem; letter-spacing:0.3em; color:var(--a2); opacity:0.5; margin-bottom:0.18rem; }
+.tl-h { font-family:'Cinzel',serif; font-size:0.92rem; color:var(--a); margin-bottom:0.35rem; }
+.tl-b { font-size:0.95rem; line-height:1.8; color:rgba(232,220,200,0.7); margin:0; }
+
+.names { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:1.1rem; }
+.name-tag { font-family:'Cinzel',serif; font-size:0.68rem; padding:0.35rem 0.85rem; border-radius:2px; border:1px solid rgba(160,160,230,0.12); color:rgba(232,220,200,0.55); background:rgba(255,255,255,0.015); transition:all 0.25s; cursor:default; }
+.name-tag:hover { border-color:var(--a); color:var(--a); }
+
+footer { position:relative; z-index:2; text-align:center; padding:3.5rem 2rem; border-top:1px solid rgba(160,160,230,0.1); }
+footer .deva { font-family:'Noto Sans Devanagari',sans-serif; font-size:1.5rem; color:var(--a); display:block; margin-bottom:0.6rem; }
+footer p { font-size:0.82rem; color:rgba(232,220,200,0.28); margin-bottom:1rem; }
+.footer-nav { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; }
+.footer-nav a { font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase; color:rgba(232,220,200,0.35); text-decoration:none; transition:color 0.3s; }
+.footer-nav a:hover { color:var(--a); }
+</style>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+<div class="noise"></div>
+
+<nav>
+  <a class="nav-logo" href="index.html">ॐ Trimurti</a>
+  <div class="nav-links">
+    <a class="nav-link" href="brahma.html">Brahma</a>
+    <a class="nav-link" href="vishnu.html">Vishnu</a>
+    <a class="nav-link active" href="shiva.html">Shiva</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-vig"></div>
+  <div class="hero-sides"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-mantra">ॐ नमः शिवाय — The Panchakshara Mantra</div>
+    <div class="hero-name">Shiva</div>
+    <div class="hero-epithet">Mahadeva · Nataraja · Lord of Transformation & Time</div>
+    <div class="hero-line"></div>
+    <p class="hero-intro">From the snow-crowned peaks of Mount Kailasha, the eternal ascetic — matted hair bearing the sacred Ganga, crescent moon adorning his brow, serpents coiling at his wrists — dances the Tandava that simultaneously destroys the old universe and births the new in a single breathless moment.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="s-label">His Divine Form</div>
+  <h2 class="s-title">Sacred <em>Attributes</em> of Shiva</h2>
+  <p class="body-p">Shiva dwells beyond the ordinary — his body smeared with sacred ash from cremation grounds, the crescent moon adorning his matted locks, the Ganga descending from his hair. He is simultaneously the supreme ascetic and the most passionate of lords.</p>
+  <div class="attr-grid">
+    <div class="attr-card"><div class="attr-icon">🔱</div><div class="attr-name">Trishula</div><p class="attr-text">His trident of creation, preservation, and destruction — the three prongs of past, present, and future held in one hand.</p></div>
+    <div class="attr-card"><div class="attr-icon">🌙</div><div class="attr-name">Crescent Moon</div><p class="attr-text">Chandra adorning his hair — the controller of tidal time, the waxing and waning of the cosmic cycle of illusion.</p></div>
+    <div class="attr-card"><div class="attr-icon">🐍</div><div class="attr-name">Vasuki</div><p class="attr-text">The serpent king coiled at his throat — the dormant Kundalini energy and his absolute mastery over death.</p></div>
+    <div class="attr-card"><div class="attr-icon">🌊</div><div class="attr-name">Ganga in Hair</div><p class="attr-text">He alone could bear the force of the sacred river's descent from heaven — his matted locks breaking her fall to earth.</p></div>
+    <div class="attr-card"><div class="attr-icon">👁️</div><div class="attr-name">Third Eye</div><p class="attr-text">The eye of annihilating wisdom — when it opens, illusion is incinerated and nothing remains but the naked truth.</p></div>
+    <div class="attr-card"><div class="attr-icon">🥁</div><div class="attr-name">Damaru</div><p class="attr-text">The hourglass drum of cosmic rhythm — its first beat was the original sound from which all language and music arose.</p></div>
+  </div>
+</div>
+
+<div class="divider"></div><div class="orn">✦ ✦ ✦</div>
+
+<div class="section">
+  <div class="s-label">Divine Consort</div>
+  <h2 class="s-title"><em>Parvati</em> — Goddess of Sacred Power</h2>
+  <div class="consort-box">
+    <div class="consort-name">Parvati</div>
+    <div class="consort-sub">Shakti · Uma · Durga · Kali · The Mountain Daughter · Adi Shakti of the Cosmos</div>
+    <p class="body-p">Parvati — daughter of Himavat, king of mountains — performed extraordinary tapas for thousands of years to win the heart of the meditating Shiva, who had withdrawn from the world after the death of his first consort Sati. Her devotion was absolute, fiercer than any weapon, deeper than the cosmic ocean. She alone could melt the lord of detachment.</p>
+    <p class="body-p">She is Adi Shakti — the primordial cosmic energy without which Shiva himself remains inert as ash. As Durga and Kali she demolishes the demonic forces of the universe. As Uma she sits beside Shiva for eternity conversing about the nature of Brahman. Together they become Ardhanarisvara — half-Shiva, half-Shakti — two faces of one infinite truth.</p>
+    <div class="d-quote">She who is the power behind all powers, the consciousness behind all consciousness — Parvati, the eternal Shakti, without whom Shiva is only Shava.<cite>— Devi Mahatmya</cite></div>
+    <div class="pills">
+      <span class="pill">Adi Shakti</span><span class="pill">Durga — Invincible</span><span class="pill">Kali — Destroyer of Evil</span>
+      <span class="pill">Uma — Serenity</span><span class="pill">Gauri — The Radiant</span><span class="pill">Ardhanarisvara</span>
+      <span class="pill">Mother of Ganesha</span><span class="pill">Mother of Kartikeya</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="s-label">Sacred Mythology</div>
+  <h2 class="s-title">The <em>Legends</em> of Shiva</h2>
+  <div class="tl">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-era">Cosmic Dance</div><div class="tl-h">Nataraja — The Eternal Tandava</div><p class="tl-b">In the golden hall of Chidambaram, Shiva dances with the abandon of one who has dissolved every boundary — left leg raised in liberation, right foot crushing Apasmara the demon of ignorance. The ring of fire surrounding him is the cosmos itself, and each gesture creates, sustains, and destroys entire worlds.</p></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-era">Samudra Manthan</div><div class="tl-h">Neelakantha — The Blue-Throated One</div><p class="tl-b">When the gods and demons churned the cosmic ocean and the lethal Halahala poison arose — capable of annihilating all creation — every deity fled in terror. Shiva alone stepped forward and drank it. Parvati seized his throat to prevent it spreading, staining it blue-black forever. For this sacrifice, he is Mahadeva.</p></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-era">The Grief of Sati</div><div class="tl-h">Sati — The First Love</div><p class="tl-b">When Sati, his first consort, immolated herself after being humiliated by her father Daksha, Shiva carried her body through the cosmos in inconsolable grief. Vishnu sent his Sudarshana Chakra to sever Sati's body into 51 pieces — each falling to earth as a Shakti Peeth, sacred sites of the goddess venerated to this day.</p></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-era">The Supreme Teacher</div><div class="tl-h">Dakshinamurthy — Silence as Teaching</div><p class="tl-b">Seated beneath an ancient banyan tree, young Shiva as Dakshinamurthy taught the eldest sages of the cosmos — not through words or scripture, but through the absolute eloquence of silence. His highest teaching: the Self cannot be pointed to by language, only by the cessation of noise within.</p></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="s-label">Sacred Names</div>
+  <h2 class="s-title">The <em>Names</em> of Shiva</h2>
+  <div class="names">
+    <span class="name-tag">Mahadeva</span><span class="name-tag">Nataraja</span><span class="name-tag">Neelakantha</span>
+    <span class="name-tag">Rudra</span><span class="name-tag">Mahakala</span><span class="name-tag">Pashupati</span>
+    <span class="name-tag">Bhairava</span><span class="name-tag">Shankar</span><span class="name-tag">Tryambaka</span>
+    <span class="name-tag">Dakshinamurthy</span><span class="name-tag">Sadashiva</span><span class="name-tag">Viswanatha</span>
+    <span class="name-tag">Ardhanarishvara</span><span class="name-tag">Maheshvara</span>
+  </div>
+</div>
+
+<footer>
+  <span class="deva">ॐ नमः शिवाय</span>
+  <p>The Panchakshara — five sacred syllables of liberation</p>
+  <div class="footer-nav">
+    <a href="brahma.html">← Brahma</a>
+    <a href="vishnu.html">← Vishnu</a>
+    <a href="index.html">Trinity Home</a>
+  </div>
+</footer>
+
+<script>
+var canvas = document.getElementById('bgCanvas');
+var ctx = canvas.getContext('2d');
+var ptcls = [];
+function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+resize(); window.addEventListener('resize', resize);
+function newP(){
+  return { x: Math.random()*canvas.width, y: canvas.height+5,
+    r: Math.random()*1.5+0.3, speed: Math.random()*0.5+0.15,
+    drift: (Math.random()-0.5)*0.3, op: Math.random()*0.5+0.1 };
+}
+for(var i=0;i<80;i++){ var p=newP(); p.y=Math.random()*canvas.height; ptcls.push(p); }
+function anim(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(var i=0;i<ptcls.length;i++){
+    var p=ptcls[i];
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(160,160,230,'+p.op+')'; ctx.fill();
+    p.y-=p.speed; p.x+=p.drift; p.op-=0.001;
+    if(p.y<-5||p.op<=0) ptcls[i]=newP();
+  }
+  requestAnimationFrame(anim);
+}
+anim();
+</script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Brahma — The Creator</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+Devanagari:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+:root { --a:#f28c1a; --a2:#ffd166; --g:rgba(242,140,26,0.3); --bg:#100800; }
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior: smooth; }
+body { font-family:'EB Garamond',serif; background:var(--bg); color:#e8dcc8; overflow-x:hidden; cursor:default; }
+
+#bgCanvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+.noise { position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px; }
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1rem 2rem; background:rgba(16,8,0,0.85); backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(242,140,26,0.15); }
+.nav-logo { font-family:'Cinzel Decorative',serif; font-size:0.75rem; letter-spacing:0.25em; color:var(--a); text-decoration:none; }
+.nav-links { display:flex; gap:1.5rem; }
+.nav-link { font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase;
+  color:rgba(232,220,200,0.4); text-decoration:none; transition:color 0.3s; padding:0.2rem 0; border-bottom:1px solid transparent; }
+.nav-link:hover, .nav-link.active { color:var(--a); border-color:var(--a); }
+
+/* HERO */
+.hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:7rem 2rem 5rem; position:relative; overflow:hidden; }
+.hero-bg { position:absolute; inset:0;
+  background-image: url('brahma.jpeg');
+  background-size:cover; background-position:center 20%;
+  filter:brightness(0.18) saturate(0.6); transform:scale(1.05); }
+.hero-vig { position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 80% at 50% 50%, transparent 15%, rgba(16,8,0,0.7) 60%, rgba(16,8,0,0.97) 100%); }
+.hero-sides { position:absolute; inset:0;
+  background:linear-gradient(to right, rgba(16,8,0,0.9) 0%, transparent 25%, transparent 75%, rgba(16,8,0,0.9) 100%); }
+.hero-glow { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:550px; height:550px; border-radius:50%;
+  background:radial-gradient(circle, var(--g) 0%, transparent 70%);
+  animation:gPulse 4s ease-in-out infinite; pointer-events:none; }
+@keyframes gPulse { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.6} 50%{transform:translate(-50%,-50%) scale(1.2);opacity:1} }
+.hero-content { position:relative; z-index:5; max-width:680px; }
+.hero-mantra { font-family:'Noto Sans Devanagari',sans-serif; font-size:1rem; color:var(--a); opacity:0.8;
+  margin-bottom:1rem; animation:fadeUp 0.8s ease both; }
+.hero-name { font-family:'Cinzel Decorative',serif; font-weight:900;
+  font-size:clamp(4rem,12vw,8rem); line-height:0.95; color:var(--a);
+  text-shadow:0 0 80px var(--g); filter:drop-shadow(0 0 40px var(--g));
+  animation:fadeUp 0.8s 0.1s ease both; }
+.hero-epithet { font-family:'Cinzel',serif; font-size:clamp(0.6rem,1.5vw,0.82rem);
+  letter-spacing:0.45em; text-transform:uppercase; color:var(--a2); opacity:0.55;
+  margin-top:0.5rem; animation:fadeUp 0.8s 0.2s ease both; }
+.hero-line { width:180px; height:1px; margin:1.8rem auto;
+  background:linear-gradient(to right,transparent,var(--a),transparent);
+  animation:fadeUp 0.8s 0.25s ease both; }
+.hero-intro { font-size:1.08rem; line-height:1.9; color:rgba(232,220,200,0.8);
+  animation:fadeUp 0.8s 0.3s ease both; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(25px)} to{opacity:1;transform:translateY(0)} }
+
+/* SECTIONS */
+.section { max-width:1000px; margin:0 auto; padding:5rem 2rem; position:relative; z-index:2; }
+.s-label { font-family:'Cinzel',serif; font-size:0.58rem; letter-spacing:0.5em; text-transform:uppercase;
+  color:var(--a); opacity:0.7; margin-bottom:0.4rem; }
+.s-title { font-family:'Cinzel Decorative',serif; font-size:clamp(1.3rem,3vw,2rem);
+  color:#e8dcc8; margin-bottom:1.4rem; line-height:1.2; }
+.s-title em { color:var(--a); font-style:normal; }
+.body-p { font-size:1.05rem; line-height:1.9; color:rgba(232,220,200,0.8); margin-bottom:1.1rem; }
+.divider { max-width:1000px; margin:0 auto; height:1px;
+  background:linear-gradient(to right,transparent,rgba(242,140,26,0.2),transparent); }
+.orn { text-align:center; padding:1rem 0; color:var(--a); font-size:0.9rem; letter-spacing:1.5rem; opacity:0.5; }
+
+/* ATTR GRID */
+.attr-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin-top:1.5rem; }
+.attr-card { border:1px solid rgba(242,140,26,0.12); border-top:2px solid var(--a);
+  padding:1.4rem 1.1rem; background:rgba(242,140,26,0.03);
+  transition:transform 0.3s, box-shadow 0.3s; }
+.attr-card:hover { transform:translateY(-5px); box-shadow:0 10px 30px var(--g); }
+.attr-icon { font-size:1.5rem; margin-bottom:0.6rem; }
+.attr-name { font-family:'Cinzel',serif; font-size:0.72rem; letter-spacing:0.1em; color:var(--a); margin-bottom:0.35rem; }
+.attr-text { font-size:0.85rem; line-height:1.6; color:rgba(232,220,200,0.55); margin:0; }
+
+/* CONSORT */
+.consort-box { border:1px solid rgba(242,140,26,0.15); border-left:3px solid var(--a2);
+  padding:2.5rem; background:rgba(255,255,255,0.015); position:relative; overflow:hidden; margin-top:1.5rem; }
+.consort-box::before { content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(to right, var(--a), var(--a2), transparent); }
+.consort-name { font-family:'Cinzel Decorative',serif; font-size:clamp(1.8rem,4vw,2.6rem);
+  font-weight:700; color:var(--a2); margin-bottom:0.3rem; filter:drop-shadow(0 0 18px var(--g)); }
+.consort-sub { font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase;
+  color:rgba(232,220,200,0.35); margin-bottom:1.4rem; }
+.d-quote { border-left:2px solid var(--a); padding:0.9rem 1.4rem; margin:1.3rem 0;
+  background:rgba(255,255,255,0.018); font-style:italic; font-size:0.98rem; line-height:1.8; color:rgba(232,220,200,0.72); }
+.d-quote cite { display:block; margin-top:0.4rem; font-size:0.72rem; font-style:normal; letter-spacing:0.1em; color:var(--a); }
+.pills { display:flex; flex-wrap:wrap; gap:0.45rem; margin-top:1.1rem; }
+.pill { font-family:'Cinzel',serif; font-size:0.62rem; padding:0.32rem 0.85rem; border-radius:100px;
+  border:1px solid rgba(242,140,26,0.25); color:var(--a); background:rgba(242,140,26,0.04);
+  transition:all 0.25s; cursor:default; }
+.pill:hover { background:rgba(242,140,26,0.1); border-color:var(--a); }
+
+/* TIMELINE */
+.tl { position:relative; padding-left:1.7rem; margin-top:1.4rem; }
+.tl::before { content:''; position:absolute; left:0; top:0; bottom:0; width:1px;
+  background:linear-gradient(to bottom, var(--a), transparent); }
+.tl-item { position:relative; margin-bottom:2rem; padding-left:1.1rem; }
+.tl-dot { position:absolute; left:-2rem; top:0.22rem; width:9px; height:9px; border-radius:50%;
+  background:var(--a); box-shadow:0 0 8px var(--g); }
+.tl-era { font-family:'Cinzel',serif; font-size:0.58rem; letter-spacing:0.3em; color:var(--a2); opacity:0.45; margin-bottom:0.18rem; }
+.tl-h { font-family:'Cinzel',serif; font-size:0.92rem; color:var(--a); margin-bottom:0.35rem; }
+.tl-b { font-size:0.95rem; line-height:1.8; color:rgba(232,220,200,0.7); margin:0; }
+
+/* NAMES */
+.names { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:1.1rem; }
+.name-tag { font-family:'Cinzel',serif; font-size:0.68rem; padding:0.35rem 0.85rem; border-radius:2px;
+  border:1px solid rgba(242,140,26,0.15); color:rgba(232,220,200,0.55); background:rgba(255,255,255,0.015);
+  transition:all 0.25s; cursor:default; }
+.name-tag:hover { border-color:var(--a); color:var(--a); }
+
+/* FOOTER */
+footer { position:relative; z-index:2; text-align:center; padding:3.5rem 2rem;
+  border-top:1px solid rgba(242,140,26,0.1); }
+footer .deva { font-family:'Noto Sans Devanagari',sans-serif; font-size:1.5rem; color:var(--a); display:block; margin-bottom:0.6rem; }
+footer p { font-size:0.82rem; color:rgba(232,220,200,0.28); margin-bottom:1rem; }
+.footer-nav { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; }
+.footer-nav a { font-family:'Cinzel',serif; font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase;
+  color:rgba(232,220,200,0.35); text-decoration:none; transition:color 0.3s; }
+.footer-nav a:hover { color:var(--a); }
+</style>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+<div class="noise"></div>
+
+<nav>
+  <a class="nav-logo" href="index.html">ॐ Trimurti</a>
+  <div class="nav-links">
+    <a class="nav-link active" href="brahma.html">Brahma</a>
+    <a class="nav-link" href="vishnu.html">Vishnu</a>
+    <a class="nav-link" href="shiva.html">Shiva</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-vig"></div>
+  <div class="hero-sides"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-mantra">नमो ब्रह्मणे — Salutations to the Creator</div>
+    <div class="hero-name">Brahma</div>
+    <div class="hero-epithet">Prajapati · Chaturmukha · The Eternal Creator</div>
+    <div class="hero-line"></div>
+    <p class="hero-intro">Before time had a name, in the infinite stillness before the first breath, Brahma the four-faced Lord awakened upon a golden lotus — the primordial intelligence summoned to fashion the universe through the thunderous resonance of sacred sound.</p>
+  </div>
+</div>
+
+<!-- ATTRIBUTES -->
+<div class="section">
+  <div class="s-label">His Divine Form</div>
+  <h2 class="s-title">Sacred <em>Attributes</em> of Brahma</h2>
+  <p class="body-p">Brahma bears four faces (Chaturmukha), each turned to a cardinal direction, continuously reciting the four Vedas. He holds the sacred scriptures, a water pot, a rosary, and a lotus — the instruments of creation and knowledge.</p>
+  <div class="attr-grid">
+    <div class="attr-card"><div class="attr-icon">🏵️</div><div class="attr-name">Four Faces</div><p class="attr-text">Each face reciting one of the four Vedas, gazing across every direction of space and time simultaneously.</p></div>
+    <div class="attr-card"><div class="attr-icon">📿</div><div class="attr-name">Akshamala</div><p class="attr-text">The rosary of time — counting the endless cycles of creation, sustenance, and dissolution.</p></div>
+    <div class="attr-card"><div class="attr-icon">🪷</div><div class="attr-name">Cosmic Lotus</div><p class="attr-text">He emerges from a lotus blooming from Vishnu's navel — pure creation arising from the waters of consciousness.</p></div>
+    <div class="attr-card"><div class="attr-icon">🏺</div><div class="attr-name">Kamandalu</div><p class="attr-text">Sacred water pot holding the primordial waters — the elemental source from which all material life emerges.</p></div>
+    <div class="attr-card"><div class="attr-icon">🦢</div><div class="attr-name">Hamsa</div><p class="attr-text">His vehicle the swan — wisdom to separate truth from illusion, the eternal from the temporary.</p></div>
+    <div class="attr-card"><div class="attr-icon">📖</div><div class="attr-name">The Vedas</div><p class="attr-text">The four scriptures held in his four hands — the divine blueprint of the entire cosmos.</p></div>
+  </div>
+</div>
+
+<div class="divider"></div><div class="orn">✦ ✦ ✦</div>
+
+<!-- CONSORT -->
+<div class="section">
+  <div class="s-label">Divine Consort</div>
+  <h2 class="s-title"><em>Saraswati</em> — Goddess of All Wisdom</h2>
+  <div class="consort-box">
+    <div class="consort-name">Saraswati</div>
+    <div class="consort-sub">Vak Devi · Goddess of Knowledge, Music & Arts · The White River of Wisdom</div>
+    <p class="body-p">Saraswati — pure as the first light of dawn, clothed in immaculate white, her veena singing the very frequencies of creation — is not merely Brahma's consort but the power through which creation finds its voice. She is Vak herself: the divine Word that brought the universe into being. Without her, the cosmos would remain locked in beautiful, meaningless silence.</p>
+    <p class="body-p">Seated upon a white lotus in crystalline stillness, she bestows the four gifts of existence: learning, eloquence, memory, and inspired artistry. Every poet who touched the divine, every musician who made the gods weep, every scholar who glimpsed the infinite — each was drinking from Saraswati's eternal river.</p>
+    <div class="d-quote">O Goddess, white as jasmine and the moon — whose veena fills the cosmos with sacred resonance — bless all who seek the light of true knowledge.<cite>— Saraswati Vandana</cite></div>
+    <div class="pills">
+      <span class="pill">Goddess of Knowledge</span><span class="pill">Divine Speech (Vak)</span><span class="pill">Patroness of Arts</span>
+      <span class="pill">Music & Melody</span><span class="pill">Sacred River</span><span class="pill">Pure Intellect</span>
+      <span class="pill">Wisdom Bestower</span><span class="pill">Veena Virtuoso</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- MYTHOLOGY -->
+<div class="section">
+  <div class="s-label">Sacred Mythology</div>
+  <h2 class="s-title">The <em>Legends</em> of Brahma</h2>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-era">Cosmogony · The First Moment</div>
+      <div class="tl-h">Born on the Lotus</div>
+      <p class="tl-b">In the timeless moment before the first dawn, Vishnu lay in cosmic repose on the serpent Ananta. From his navel sprang a golden lotus, and within it blazed Brahma — the first mind, the first intelligence. He opened his four eyes and beheld only void. Then, commanded by Vishnu's divine intent, he began to speak — and the universe answered.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-era">The Act of Creation</div>
+      <div class="tl-h">Fashioning the Cosmos</div>
+      <p class="tl-b">Brahma fashioned fourteen worlds, the gods and sages, the demons and humans, time itself, the stars, the seasons, and the sacred laws of Dharma. He created the Saptarishi — seven great sages who would carry divine wisdom across creation like torches across the darkness of the ages.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-era">The Curse · Mystery of Few Temples</div>
+      <div class="tl-h">Why Brahma Has Few Temples</div>
+      <p class="tl-b">Of all principal deities, Brahma is worshipped in remarkably few temples — the most sacred being Pushkar, Rajasthan. Ancient legends hold that he was cursed by Shiva and Saraswati for a transgression of truth, limiting his earthly veneration. Yet as the originating intelligence of all existence, his presence pervades every atom of the created world.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- NAMES -->
+<div class="section">
+  <div class="s-label">Sacred Names</div>
+  <h2 class="s-title">The <em>Names</em> of Brahma</h2>
+  <div class="names">
+    <span class="name-tag">Prajapati</span><span class="name-tag">Chaturmukha</span><span class="name-tag">Hiranyagarbha</span>
+    <span class="name-tag">Svayambhu</span><span class="name-tag">Vedagarbha</span><span class="name-tag">Pitamaha</span>
+    <span class="name-tag">Virinchi</span><span class="name-tag">Kamalasana</span><span class="name-tag">Saraswatipati</span>
+    <span class="name-tag">Aja</span><span class="name-tag">Nabhija</span><span class="name-tag">Srashtri</span>
+  </div>
+</div>
+
+<footer>
+  <span class="deva">नमो ब्रह्मणे</span>
+  <p>Salutations to Brahma, the Lord of all Creation</p>
+  <div class="footer-nav">
+    <a href="index.html">← Back to Trinity</a>
+    <a href="vishnu.html">Vishnu →</a>
+    <a href="shiva.html">Shiva →</a>
+  </div>
+</footer>
+
+<script>
+var canvas = document.getElementById('bgCanvas');
+var ctx = canvas.getContext('2d');
+var ptcls = [];
+function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+resize(); window.addEventListener('resize', resize);
+function newP(){
+  return { x: Math.random()*canvas.width, y: canvas.height+5,
+    r: Math.random()*1.5+0.3, speed: Math.random()*0.5+0.15,
+    drift: (Math.random()-0.5)*0.3, op: Math.random()*0.5+0.1 };
+}
+for(var i=0;i<80;i++){ var p=newP(); p.y=Math.random()*canvas.height; ptcls.push(p); }
+function anim(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(var i=0;i<ptcls.length;i++){
+    var p=ptcls[i];
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(242,140,26,'+p.op+')'; ctx.fill();
+    p.y-=p.speed; p.x+=p.drift; p.op-=0.001;
+    if(p.y<-5||p.op<=0) ptcls[i]=newP();
+  }
+  requestAnimationFrame(anim);
+}
+anim();
+</script>
+</body>
+</html>

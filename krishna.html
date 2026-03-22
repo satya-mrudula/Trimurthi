@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Krishna — The Divine Avatar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Noto+Sans+Devanagari:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0a0e2a;
+      --deep: #060918;
+      --gold: #c9992a;
+      --gold-light: #f0c84a;
+      --peacock: #1a6b5e;
+      --sky: #3a9bd5;
+      --lotus: #d4607a;
+      --cream: #f5ead2;
+      --text: #e8dcc8;
+      --muted: #9a8c78;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--deep);
+      color: var(--text);
+      font-family: 'EB Garamond', Georgia, serif;
+      overflow-x: hidden;
+    }
+
+    /* ── STARS BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 55% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 25%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 20% 80%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 45% 70%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 65% 85%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 90%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 5% 50%, rgba(255,255,255,0.5) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(26,107,94,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 50% 100%, rgba(10,14,42,0.9) 0%, transparent 70%),
+        radial-gradient(ellipse 120% 50% at 50% 0%, rgba(201,153,42,0.07) 0%, transparent 60%);
+      z-index: 0;
+    }
+
+    /* Animated glow circle behind the idol */
+    .glow-orb {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,153,42,0.15) 0%, rgba(58,155,213,0.08) 40%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      animation: pulse 5s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -55%) scale(1); opacity: 0.7; }
+      50% { transform: translate(-50%, -55%) scale(1.1); opacity: 1; }
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 760px; }
+
+    .sanskrit {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      opacity: 0.85;
+      margin-bottom: 1.2rem;
+      animation: fadeDown 1s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-weight: 900;
+      line-height: 1.05;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, #e8a020 70%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeDown 1s 0.2s ease both;
+      filter: drop-shadow(0 0 30px rgba(201,153,42,0.4));
+    }
+
+    .hero-subtitle {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(0.9rem, 2.5vw, 1.35rem);
+      font-weight: 400;
+      color: var(--sky);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-top: 0.6rem;
+      animation: fadeDown 1s 0.4s ease both;
+    }
+
+    .divider {
+      margin: 2rem auto;
+      width: 200px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      animation: fadeDown 1s 0.5s ease both;
+    }
+
+    .hero-desc {
+      font-size: clamp(1.05rem, 2vw, 1.22rem);
+      line-height: 1.85;
+      color: var(--cream);
+      opacity: 0.9;
+      animation: fadeDown 1s 0.6s ease both;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      z-index: 1;
+      animation: fadeDown 1s 1s ease both;
+    }
+    .scroll-hint span {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .scroll-arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 2px solid var(--gold);
+      border-bottom: 2px solid var(--gold);
+      transform: rotate(45deg);
+      animation: bounce 1.5s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50% { transform: rotate(45deg) translateY(6px); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION LAYOUT ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .section-title span { color: var(--gold); }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+
+    /* ── BIRTH SECTION ── */
+    .birth-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (max-width: 700px) {
+      .birth-section { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .birth-ornament {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mandala {
+      width: 260px;
+      height: 260px;
+      position: relative;
+    }
+
+    /* ── ATTRIBUTES GRID ── */
+    .attr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .attr-card {
+      background: linear-gradient(135deg, rgba(26,107,94,0.12), rgba(10,14,42,0.6));
+      border: 1px solid rgba(201,153,42,0.25);
+      border-radius: 4px;
+      padding: 1.8rem 1.4rem;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .attr-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(201,153,42,0.6);
+      box-shadow: 0 12px 40px rgba(201,153,42,0.12);
+    }
+    .attr-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .attr-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.85rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    .attr-text {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── LILA TIMELINE ── */
+    .timeline {
+      position: relative;
+      margin-top: 3rem;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold), var(--peacock), var(--lotus), transparent);
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 3rem;
+      padding-left: 1.5rem;
+    }
+    .tl-dot {
+      position: absolute;
+      left: -2.35rem;
+      top: 0.35rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--deep);
+      box-shadow: 0 0 10px rgba(201,153,42,0.6);
+    }
+    .tl-era {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.7rem;
+      color: var(--sky);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .tl-heading {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .tl-body {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text);
+      margin: 0;
+    }
+
+    /* ── QUOTE ── */
+    .quote-block {
+      border-left: 3px solid var(--gold);
+      padding: 1.5rem 2rem;
+      margin: 3rem 0;
+      background: linear-gradient(to right, rgba(201,153,42,0.06), transparent);
+      position: relative;
+    }
+    .quote-block::before {
+      content: '\201C';
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 5rem;
+      color: var(--gold);
+      opacity: 0.2;
+      position: absolute;
+      top: -1rem;
+      left: 1rem;
+      line-height: 1;
+    }
+    .quote-text {
+      font-style: italic;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: var(--cream);
+      margin: 0 0 0.6rem;
+    }
+    .quote-source {
+      font-size: 0.85rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin: 0;
+    }
+
+    /* ── TEACHINGS ── */
+    .teachings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .teach-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(201,153,42,0.15);
+      border-top: 3px solid var(--gold);
+      padding: 2rem;
+      border-radius: 2px;
+      transition: background 0.3s;
+    }
+    .teach-card:hover { background: rgba(201,153,42,0.05); }
+    .teach-num {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 2.5rem;
+      color: rgba(201,153,42,0.2);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .teach-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    .teach-body {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text);
+      margin: 0;
+    }
+
+    /* ── SEPARATOR ── */
+    .full-divider {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,153,42,0.3), transparent);
+      position: relative;
+      z-index: 1;
+    }
+    .ornament-row {
+      text-align: center;
+      margin: 1.5rem 0;
+      color: var(--gold);
+      font-size: 1.2rem;
+      letter-spacing: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── NAMES SECTION ── */
+    .names-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+    .name-pill {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.78rem;
+      padding: 0.5rem 1.1rem;
+      border: 1px solid rgba(201,153,42,0.4);
+      border-radius: 100px;
+      color: var(--gold-light);
+      background: rgba(201,153,42,0.07);
+      letter-spacing: 0.05em;
+      transition: background 0.25s, box-shadow 0.25s;
+      cursor: default;
+    }
+    .name-pill:hover {
+      background: rgba(201,153,42,0.18);
+      box-shadow: 0 0 15px rgba(201,153,42,0.2);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 4rem 2rem;
+      border-top: 1px solid rgba(201,153,42,0.15);
+    }
+    footer .devanagari {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 2rem;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 1rem;
+    }
+    footer p { font-size: 0.9rem; color: var(--muted); margin: 0; }
+
+    /* ── BG STRIPE ── */
+    .bg-stripe {
+      position: fixed;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          -55deg,
+          transparent,
+          transparent 80px,
+          rgba(201,153,42,0.018) 80px,
+          rgba(201,153,42,0.018) 82px
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-stripe"></div>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="glow-orb"></div>
+  <div class="hero-content">
+    <div class="sanskrit">ॐ नमो भगवते वासुदेवाय</div>
+    <h1 class="hero-title">Krishna</h1>
+    <div class="hero-subtitle">The Supreme Avatar of Lord Vishnu</div>
+    <div class="divider"></div>
+    <p class="hero-desc">
+      The eighth avatar of Vishnu, the Preserver of the Universe — Krishna descended into the mortal world 
+      as a complete divine incarnation, <em>Purna Avatar</em>, embodying eternal love, transcendent wisdom, 
+      and the infinite play of cosmic consciousness.
+    </p>
+  </div>
+  <div class="scroll-hint">
+    <span>Explore</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
+
+<!-- ── BIRTH & IDENTITY ── -->
+<section>
+  <div class="birth-section">
+    <div>
+      <div class="section-label">The Descent</div>
+      <h2 class="section-title">Birth of the <span>Divine</span></h2>
+      <p>
+        Krishna was born on the eighth day of the dark half of the month of Bhadrapada 
+        (Krishnashtami) in Mathura to Princess Devaki and Vasudeva. His birth was heralded 
+        by celestial events — divine music, fragrant winds, and the blooming of lotus flowers 
+        at midnight.
+      </p>
+      <p>
+        Prophecy foretold that the eighth child of Devaki would slay the tyrant king Kamsa, 
+        her own brother. To protect the infant, Vasudeva carried the newborn Krishna across the 
+        flooded Yamuna river on a stormy night, guided by divine protection, to the village 
+        of Gokula, where he was raised by the cowherd Nanda and Yashoda.
+      </p>
+    </div>
+    <div class="birth-ornament">
+      <!-- Decorative SVG mandala -->
+      <svg class="mandala" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="mg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#c9992a" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#1a6b5e" stop-opacity="0.05"/>
+          </radialGradient>
+        </defs>
+        <circle cx="130" cy="130" r="125" fill="url(#mg)" stroke="#c9992a" stroke-width="0.5" stroke-opacity="0.4"/>
+        <circle cx="130" cy="130" r="100" fill="none" stroke="#c9992a" stroke-width="0.5" stroke-opacity="0.3"/>
+        <circle cx="130" cy="130" r="75" fill="none" stroke="#c9992a" stroke-width="0.5" stroke-opacity="0.3"/>
+        <circle cx="130" cy="130" r="50" fill="none" stroke="#c9992a" stroke-width="1" stroke-opacity="0.5"/>
+        <!-- Petals -->
+        <g opacity="0.5">
+          <ellipse cx="130" cy="55" rx="12" ry="28" fill="none" stroke="#c9992a" stroke-width="1"/>
+          <ellipse cx="130" cy="205" rx="12" ry="28" fill="none" stroke="#c9992a" stroke-width="1"/>
+          <ellipse cx="55" cy="130" rx="28" ry="12" fill="none" stroke="#c9992a" stroke-width="1"/>
+          <ellipse cx="205" cy="130" rx="28" ry="12" fill="none" stroke="#c9992a" stroke-width="1"/>
+        </g>
+        <g opacity="0.4" transform="rotate(45 130 130)">
+          <ellipse cx="130" cy="55" rx="10" ry="24" fill="none" stroke="#3a9bd5" stroke-width="1"/>
+          <ellipse cx="130" cy="205" rx="10" ry="24" fill="none" stroke="#3a9bd5" stroke-width="1"/>
+          <ellipse cx="55" cy="130" rx="24" ry="10" fill="none" stroke="#3a9bd5" stroke-width="1"/>
+          <ellipse cx="205" cy="130" rx="24" ry="10" fill="none" stroke="#3a9bd5" stroke-width="1"/>
+        </g>
+        <!-- Star of David inner -->
+        <polygon points="130,80 155,120 105,120" fill="none" stroke="#c9992a" stroke-width="1" opacity="0.5"/>
+        <polygon points="130,180 155,140 105,140" fill="none" stroke="#c9992a" stroke-width="1" opacity="0.5"/>
+        <!-- Central lotus -->
+        <circle cx="130" cy="130" r="18" fill="rgba(201,153,42,0.1)" stroke="#c9992a" stroke-width="1.5"/>
+        <text x="130" y="136" text-anchor="middle" font-family="serif" font-size="18" fill="#c9992a" opacity="0.9">ॐ</text>
+        <!-- Rotating outer marks -->
+        <g opacity="0.35">
+          <line x1="130" y1="5" x2="130" y2="22" stroke="#c9992a" stroke-width="1.5"/>
+          <line x1="130" y1="238" x2="130" y2="255" stroke="#c9992a" stroke-width="1.5"/>
+          <line x1="5" y1="130" x2="22" y2="130" stroke="#c9992a" stroke-width="1.5"/>
+          <line x1="238" y1="130" x2="255" y2="130" stroke="#c9992a" stroke-width="1.5"/>
+          <line x1="38" y1="38" x2="50" y2="50" stroke="#c9992a" stroke-width="1.5"/>
+          <line x1="210" y1="210" x2="222" y2="222" stroke="#c9992a" stroke-width="1.5"/>
+          <line x1="222" y1="38" x2="210" y2="50" stroke="#c9992a" stroke-width="1.5"/>
+          <line x1="50" y1="210" x2="38" y2="222" stroke="#c9992a" stroke-width="1.5"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+<div class="ornament-row">✦ ✦ ✦</div>
+
+<!-- ── DIVINE ATTRIBUTES ── -->
+<section>
+  <div class="section-label">His Essence</div>
+  <h2 class="section-title">Divine <span>Attributes</span></h2>
+  <p>Krishna is Purna Avatar — the fullest, most complete descent of Vishnu — possessing all sixteen divine qualities (Shodasha Kala) simultaneously.</p>
+  <div class="attr-grid">
+    <div class="attr-card">
+      <div class="attr-icon">🦚</div>
+      <div class="attr-title">Peacock Feather</div>
+      <p class="attr-text">Adorned always on his crown, symbolising beauty, grace, and the cosmic dance of creation.</p>
+    </div>
+    <div class="attr-card">
+      <div class="attr-icon">🎵</div>
+      <div class="attr-title">The Flute (Bansuri)</div>
+      <p class="attr-text">His enchanting music draws all creation toward the divine — the call of the soul back to God.</p>
+    </div>
+    <div class="attr-card">
+      <div class="attr-icon">💙</div>
+      <div class="attr-title">Azure Form</div>
+      <p class="attr-text">His blue-dark complexion, like a rain cloud or the infinite sky, represents the limitless and all-pervasive divine.</p>
+    </div>
+    <div class="attr-card">
+      <div class="attr-icon">🪷</div>
+      <div class="attr-title">Sudarshana Chakra</div>
+      <p class="attr-text">The spinning discus of divine justice — the cosmic wheel that destroys ignorance and evil.</p>
+    </div>
+    <div class="attr-card">
+      <div class="attr-icon">⭐</div>
+      <div class="attr-title">Kaustubha Gem</div>
+      <p class="attr-text">The radiant jewel adorning his chest, representing the pure consciousness that illuminates all existence.</p>
+    </div>
+    <div class="attr-card">
+      <div class="attr-icon">🌿</div>
+      <div class="attr-title">Vaijayanti Garland</div>
+      <p class="attr-text">A garland of five-coloured flowers, representing the five elements that constitute the cosmos.</p>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- ── LILAS TIMELINE ── -->
+<section>
+  <div class="section-label">The Sacred Story</div>
+  <h2 class="section-title">The Divine <span>Lilas</span></h2>
+  <p>Krishna's life, from cradle to cosmic war, is a series of divine plays (<em>lilas</em>) that reveal the interplay of the human and divine.</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-era">Childhood · Gokula & Vrindavan</div>
+      <h3 class="tl-heading">The Butter Thief of Vrindavan</h3>
+      <p class="tl-body">As a child in Gokula and Vrindavan, Krishna charmed all with his mischievous ways — stealing butter, dancing with gopis, and playfully teasing his mother Yashoda. He killed the demoness Putana, lifted the mighty Govardhana Hill on his little finger to shield the villagers from Indra's wrath, and performed the Rasa Lila — the divine circular dance that is a metaphor for the soul's longing for union with the infinite.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-era">Youth · Mathura</div>
+      <h3 class="tl-heading">The Slaying of Kamsa</h3>
+      <p class="tl-body">Summoned to Mathura by the wicked King Kamsa under the guise of a wrestling tournament, the young Krishna defeated the mightiest wrestlers and ultimately slew Kamsa himself, freeing his parents from captivity and fulfilling the divine prophecy that had been ordained before his birth.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-era">Statecraft · Dwarka</div>
+      <h3 class="tl-heading">The Architect of Dharma</h3>
+      <p class="tl-body">Krishna established the magnificent city of Dwarka in the sea, becoming its king. He emerged as a supreme statesman, counsellor, and protector of righteousness. As a diplomat and ally, he worked tirelessly to prevent the catastrophic war of Kurukshetra — and when all efforts failed, he stood as the charioteer of the righteous Pandavas.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-era">Kurukshetra · The Great War</div>
+      <h3 class="tl-heading">The Bhagavad Gita</h3>
+      <p class="tl-body">On the battlefield of Kurukshetra, when Arjuna collapsed in grief at the prospect of fighting his own kinsmen, Krishna revealed the eternal truths of life, duty, devotion, and liberation. This divine dialogue — the Bhagavad Gita — became the most celebrated scripture of the Hindu tradition, a timeless guide to righteous living for all of humanity.</p>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+<div class="ornament-row">✦ ✦ ✦</div>
+
+<!-- ── GITA QUOTE ── -->
+<section>
+  <div class="quote-block">
+    <p class="quote-text">
+      Whenever righteousness declines and unrighteousness rises, I manifest myself. 
+      For the protection of the good, for the destruction of evil, 
+      and for the re-establishment of virtue, I take birth age after age.
+    </p>
+    <p class="quote-source">— Bhagavad Gita, Chapter 4, Verses 7–8</p>
+  </div>
+</section>
+
+<!-- ── TEACHINGS ── -->
+<section>
+  <div class="section-label">Bhagavad Gita</div>
+  <h2 class="section-title">Krishna's <span>Eternal Teachings</span></h2>
+  <p>On the battlefield of Kurukshetra, Krishna imparted wisdom that transcends time — the Bhagavad Gita, the "Song of God." Its 700 verses contain the distilled essence of the Upanishads and the Vedic tradition.</p>
+
+  <div class="teachings-grid">
+    <div class="teach-card">
+      <div class="teach-num">01</div>
+      <div class="teach-title">Karma Yoga</div>
+      <p class="teach-body">Perform your duty without attachment to results. Act righteously and offer every action to the divine — this is the path of selfless action that liberates the soul.</p>
+    </div>
+    <div class="teach-card">
+      <div class="teach-num">02</div>
+      <div class="teach-title">Jnana Yoga</div>
+      <p class="teach-body">The Self (Atman) is eternal, indestructible, and beyond birth and death. True knowledge is the recognition that the individual soul is identical to the universal Brahman.</p>
+    </div>
+    <div class="teach-card">
+      <div class="teach-num">03</div>
+      <div class="teach-title">Bhakti Yoga</div>
+      <p class="teach-body">Surrender wholeheartedly to the divine with unwavering love and devotion. Of all yogis, the one whose inner Self is merged in Me with devotion is the most integrated with Me.</p>
+    </div>
+    <div class="teach-card">
+      <div class="teach-num">04</div>
+      <div class="teach-title">Dhyana Yoga</div>
+      <p class="teach-body">Through disciplined meditation, silence the restless mind and behold the light of the Self within. The yogi who has conquered the mind finds peace here and now.</p>
+    </div>
+    <div class="teach-card">
+      <div class="teach-num">05</div>
+      <div class="teach-title">Raja Yoga</div>
+      <p class="teach-body">Master the senses and mind. He who has no attachments, neither rejoicing in good fortune nor disturbed in bad, stands firm with steady wisdom.</p>
+    </div>
+    <div class="teach-card">
+      <div class="teach-num">06</div>
+      <div class="teach-title">Surrender (Prapatti)</div>
+      <p class="teach-body">Abandon all duties and take refuge in Me alone. I shall liberate you from all sins; do not grieve. This is the culminating teaching — total surrender as the highest path.</p>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- ── NAMES ── -->
+<section>
+  <div class="section-label">Sahasranama</div>
+  <h2 class="section-title">Thousand <span>Names</span> of Krishna</h2>
+  <p>Krishna bears a thousand sacred names, each revealing a different facet of his infinite divine nature. Some of the most revered include:</p>
+  <div class="names-wrap">
+    <span class="name-pill">Govinda</span>
+    <span class="name-pill">Madhava</span>
+    <span class="name-pill">Murali</span>
+    <span class="name-pill">Damodara</span>
+    <span class="name-pill">Vasudeva</span>
+    <span class="name-pill">Gopala</span>
+    <span class="name-pill">Keshava</span>
+    <span class="name-pill">Janardana</span>
+    <span class="name-pill">Narayana</span>
+    <span class="name-pill">Hari</span>
+    <span class="name-pill">Achyuta</span>
+    <span class="name-pill">Mukunda</span>
+    <span class="name-pill">Vamana</span>
+    <span class="name-pill">Purushottama</span>
+    <span class="name-pill">Shyamsundar</span>
+    <span class="name-pill">Trivikrama</span>
+    <span class="name-pill">Parthasarathi</span>
+    <span class="name-pill">Yogeshwara</span>
+    <span class="name-pill">Giridhari</span>
+    <span class="name-pill">Ranchhodrai</span>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+<div class="ornament-row">✦ ✦ ✦</div>
+
+<!-- ── LEGACY ── -->
+<section>
+  <div class="section-label">Eternal Influence</div>
+  <h2 class="section-title">Legacy Across <span>the Ages</span></h2>
+  <p>
+    Few figures in world history have inspired as vast a creative, spiritual, and philosophical heritage as Lord Krishna. 
+    Celebrated across every art form — from the classical sculptures of Khajuraho and Hampi, to the Manipuri and Bharatanatyam dance traditions, 
+    to the Bhakti poetry of Mirabai, Surdas, and Jayadeva's <em>Gita Govinda</em> — Krishna remains a living presence in the daily devotion of 
+    over a billion Hindus worldwide.
+  </p>
+  <p>
+    The Bhagavad Gita, his supreme discourse, has been translated into hundreds of languages and studied by luminaries 
+    from Mahatma Gandhi to Albert Einstein, from Emerson to Thoreau. ISKCON temples across 100 countries carry his 
+    name and teachings to every corner of the earth. The festival of Janmashtami — celebrating his birth — is observed 
+    with midnight vigils, fasting, and joy wherever Hindus gather.
+  </p>
+  <p>
+    As Vishnu's eighth and most complete avatar, Krishna is not a historical figure confined to the past — he is the 
+    living principle of divine love and wisdom, ever-present and ever-accessible to the sincere devotee.
+  </p>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span class="devanagari">हरे कृष्ण</span>
+  <p>Jai Shri Krishna &nbsp;·&nbsp; A tribute to the eternal avatar of Lord Vishnu</p>
+</footer>
+
+</body>
+</html>
